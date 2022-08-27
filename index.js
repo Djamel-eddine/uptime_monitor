@@ -1,13 +1,12 @@
-const { createServer } = require("http");
-const { error, ping } = require("./urls/index.js");
-const url = require("url");
+import http from "http";
+import url from "url";
+import { error, ping } from "./urls/index.js";
 
 //ahndle the environment variables
-const dotenv = require("dotenv");
-
+import dotenv from "dotenv";
 dotenv.config();
 
-const server = createServer((req, res) => {
+const server = http.createServer((req, res) => {
   const { pathname } = url.parse(req.url, true);
   const { method } = req;
 

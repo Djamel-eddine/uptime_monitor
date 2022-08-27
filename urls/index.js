@@ -1,4 +1,4 @@
-const error = require("./error");
-const ping = require("./ping");
+import error from "./error.js";
+import ping from "./ping.js";
 
-module.exports = { error, ping };
+export { error, ping };

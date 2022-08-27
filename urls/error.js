@@ -1,5 +1,3 @@
-function error(callback) {
+export default function error(callback) {
   callback(404);
 }
-
-module.exports = error;

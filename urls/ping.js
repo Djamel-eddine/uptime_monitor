@@ -1,5 +1,3 @@
-function ping(callback, data) {
+export default function ping(callback, data) {
   callback(200);
 }
-
-module.exports = ping;
