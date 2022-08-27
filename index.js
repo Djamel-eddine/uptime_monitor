@@ -1,4 +1,5 @@
 const { createServer } = require("http");
+const { error, ping } = require("./urls/index.js");
 const url = require("url");
 
 //ahndle the environment variables
@@ -13,37 +14,30 @@ const server = createServer((req, res) => {
   const handlerPath = pathname.replace("/", "");
   const chosenHandler = handlers[handlerPath] || handlers.error;
 
-  chosenHandler({}, (code) => {
+  chosenHandler((code) => {
     res.statusCode = code;
-    if (code !== 404) {
-      res.setHeader("Content-Type", "application/json");
-      res.end(
-        JSON.stringify({
-          message:
-            "hello from the inside:\n ========" +
-            pathname +
-            " ======== " +
-            method +
-            "========" +
-            code,
+
+    res.setHeader("Content-Type", "application/json");
+    res.end(
+      JSON.stringify({
+        message:
+          "hello from the inside:\n ========" +
+          pathname +
+          " ======== " +
+          method +
+          " ======== " +
           code,
-          method,
-          pathname,
-        })
-      );
-    } else {
-      res.end();
-    }
-  });
+        code,
+        method,
+        pathname,
+      })
+    );
+  }, {});
 });
 
 const handlers = {
-  ping: (data, callback) => {
-    callback(200);
-  },
-  error: (_, callback) => {
-    callback(404);
-  },
+  ping,
+  error,
 };
 
 const port = process.env.PORT;
